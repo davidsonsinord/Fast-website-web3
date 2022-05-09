@@ -6,57 +6,22 @@ on:
       - 'main'
 
 jobs:
-  build-back:
-    name: build back image
+  build-publish:
+    name: build docker images
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
       - name: Build docker image
         run: |
-          make build-web3-back-docker
-
-  build-front:
-    name: build front image
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build docker image
-        run: |
-          make build-web3-front-docker
-
-  build-nginx:
-    name: build front image
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Build docker image
-        run: |
-          make build-web3-nginx-docker
-          
-  publish-docker:
-    name: publish docker image
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    needs:
-      - build-back
-      - build-front
-      - build-nginx
-    steps:
-      - name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.DOCKER_HUB_TOKEN }}
-      - name: Build docker image
-        run: |
-          make publish-docker-image
+          make build-push-web3-docker
