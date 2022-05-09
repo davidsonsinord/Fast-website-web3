@@ -1,0 +1,14 @@
+spring:
+    application:
+        name: fast-server
+    profiles:
+        active: ${SPRING_PROFILES_ACTIVE}
+
+local:
+    srcFolder: "/app/data/"
+
+git:
+    branch: ${GIT_FORMATION_BRANCH}
+    speakerURI: ${GIT_SPEAKER_URI}
+    formationURI: ${GIT_FORMATION_URI}
+

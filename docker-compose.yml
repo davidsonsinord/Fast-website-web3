@@ -1,0 +1,54 @@
+version: '3.8'
+services:
+  neo4j:
+    image: neo4j:3.5.3-enterprise
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: 'yes'
+      NEO4J_AUTH: 'neo4j/8+~_57+~~3|^:3=:t^%-229;x5Uz+3.0^;+|Wt:j'
+    ports:
+      - "7474:7474"
+      - "7473:7473"
+      - "7687:7687"
+    volumes:
+      - fast-db:/data
+    networks:
+      - 'fast-net'
+
+  back:
+    image: slavazais/davidson-fast-back:latest
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      GIT_FORMATION_BRANCH: 'main'
+      GIT_SPEAKER_URI: 'https://github.com/davidsonsinord/public_S_for_Speakers.git'
+      GIT_FORMATION_URI: 'https://github.com/davidsonsinord/public_F_for_Formations.git'
+      NEO4J_URI: 'bolt://neo4j'
+      NEO4J_USERNAME_BACK: 'neo4j'
+      NEO4J_PASSWORD_BACK: '8+~_57+~~3|^:3=:t^%-229;x5Uz+3.0^;+|Wt:j' # only local
+    ports:
+      - "8080:8080"
+    networks:
+      - 'fast-net'
+
+  front:
+    image: slavazais/davidson-fast-front:latest
+    environment:
+      URL_BACK: 'https://back:8080/'
+    ports:
+      - "5000:5000"
+    networks:
+      - 'fast-net'
+
+  nginx:
+    image: slavazais/davidson-fast-nginx:latest
+    environment:
+      URL_FRONT: 'https://localhost'
+    ports:
+      - "80:8081"
+    networks:
+      - 'fast-net'
+
+networks:
+  fast-net:
+
+volumes:
+  fast-db:
