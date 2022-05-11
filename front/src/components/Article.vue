@@ -4,23 +4,27 @@
       <v-container grid-list-md class="content" v-scroll="onScroll">
         <v-layout row wrap>
           <v-flex xs12>
-            <v-img style="height:500px" :src="getCover(article)" alt="image de couverture"></v-img>
+            <v-img
+              style="height: 500px"
+              :src="getCover(article)"
+              alt="image de couverture"
+            ></v-img>
           </v-flex>
           <v-flex class="social_sharing">
             <vue-goodshare-facebook
-                :page_url="getUrl()"
-                title_social="Partager"
-                has_icon
+              :page_url="getUrl()"
+              title_social="Partager"
+              has_icon
             ></vue-goodshare-facebook>
             <vue-goodshare-twitter
-                :page_url="getUrl()"
-                title_social="Twitter"
-                has_icon
+              :page_url="getUrl()"
+              title_social="Twitter"
+              has_icon
             ></vue-goodshare-twitter>
             <vue-goodshare-linked-in
-                :page_url="getUrl()"
-                title_social="Partager"
-                has_icon
+              :page_url="getUrl()"
+              title_social="Partager"
+              has_icon
             ></vue-goodshare-linked-in>
           </v-flex>
           <v-flex xs12 class="article">
@@ -36,14 +40,14 @@
       </v-container>
       <v-fade-transition>
         <v-btn
-            color="pink"
-            v-if="scrolldown"
-            dark
-            fixed
-            bottom
-            right
-            fab
-            @click="$vuetify.goTo('#top-anchor')"
+          color="pink"
+          v-if="scrolldown"
+          dark
+          fixed
+          bottom
+          right
+          fab
+          @click="$vuetify.goTo('#top-anchor')"
         >
           <v-icon>keyboard_arrow_up</v-icon>
         </v-btn>
@@ -63,16 +67,16 @@ export default {
   components: {
     VueGoodshareTwitter,
     VueGoodshareLinkedIn,
-    VueGoodshareFacebook
+    VueGoodshareFacebook,
   },
   created() {
     window.scrollTo(0, 0);
-    BlogService.getByTitle(this.$route.params.id).then(post => {
+    BlogService.getByTitle(this.$route.params.id).then((post) => {
       if (post != null) {
         this.article = post;
         this.cover = process.env.VUE_APP_BACK_URL + "img" + post.cover;
       } else {
-        this.$router.push('/404');
+        this.$router.push("/404");
       }
     });
   },
@@ -82,7 +86,8 @@ export default {
     scrolldown: false,
   }),
   mounted() {
-    this.url = 'http://localhost/posts/' + this.$route.params.id.replace(/\s+/g, '%20');
+    this.url =
+      "http://localhost/posts/" + this.$route.params.id.replace(/\s+/g, "%20");
     this.cover = process.env.VUE_APP_BACK_URL + "img" + this.article.cover;
   },
   methods: {
@@ -100,19 +105,18 @@ export default {
     },
     getCover() {
       return this.cover;
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
-
 .subheading {
   padding-left: 5.3%;
 }
 
 .title_article {
   padding-left: 5%;
-  font-family: 'Roboto Condensed', sans-serif !important;
+  font-family: "Roboto Condensed", sans-serif !important;
   text-transform: uppercase;
   font-weight: bolder;
   margin-bottom: 0;

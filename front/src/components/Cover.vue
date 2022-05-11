@@ -6,7 +6,9 @@
   >
     <v-layout column align-center justify-center class="white--text">
       <img src="../assets/logofast.png" alt="Logo Fast" height="175" />
-      <h1 class="title_cover mulberry-dav mb-2 display-1 text-xs-center">{{ title }}</h1>
+      <h1 class="title_cover mulberry-dav mb-2 display-1 text-xs-center">
+        {{ title }}
+      </h1>
       <div class="subheading text-xs-center">
         <v-spacer></v-spacer>
         <v-fade-transition class="mt-5">
@@ -30,7 +32,7 @@ export default {
   name: "Cover",
   data: () => ({
     title: "Des experts à votre service",
-    scrollPadding: 35
+    scrollPadding: 35,
   }),
   methods: {
     scrollTo(anchor = "") {
@@ -38,19 +40,18 @@ export default {
       window.scroll({
         top: moveTo.offsetTop - this.scrollPadding,
         left: 0,
-        behavior: "smooth"
+        behavior: "smooth",
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
-
 .title_cover {
-  padding-top:35px;
+  padding-top: 35px;
   font-size: 72px;
-  font-weight:bold;
+  font-weight: bold;
 }
 
 .cover_image .v-parallax__image {

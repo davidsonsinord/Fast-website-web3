@@ -15,17 +15,13 @@
               <div class="description">{{ skill.description }}</div>
 
               <div class="puces">
-                <div
-                  v-for="(item, i) in skill.puces"
-                  :key="i"
-                  class="mt-2"
-                >
-                    <v-layout>
-                            <v-icon class="icon">keyboard_arrow_right</v-icon>
-                        <v-flex>
-                            <div class="item_list">{{item}}</div>
-                        </v-flex>
-                    </v-layout>
+                <div v-for="(item, i) in skill.puces" :key="i" class="mt-2">
+                  <v-layout>
+                    <v-icon class="icon">keyboard_arrow_right</v-icon>
+                    <v-flex>
+                      <div class="item_list">{{ item }}</div>
+                    </v-flex>
+                  </v-layout>
                 </div>
               </div>
             </v-flex>
@@ -59,9 +55,9 @@ import SkillService from "../services/skill.service";
 
 export default {
   name: "FormationPage",
-  created: function() {
+  created: function () {
     window.scrollTo(0, 0);
-    SkillService.getSkill(this.$route.params.id).then(article => {
+    SkillService.getSkill(this.$route.params.id).then((article) => {
       if (article != null && article.description.length >= 15) {
         this.skill = article;
       } else {
@@ -70,17 +66,16 @@ export default {
     });
   },
   data: () => ({
-    skill: []
-  })
+    skill: [],
+  }),
 };
 </script>
 
 <style scoped>
-
-    .icon{
-        min-width:40px !important;
-        align-items: normal;
-    }
+.icon {
+  min-width: 40px !important;
+  align-items: normal;
+}
 .trainer_description {
   padding-left: 15%;
   padding-right: 15%;
@@ -113,7 +108,7 @@ export default {
 .item_list {
   font-family: "Roboto Condensed", sans-serif !important;
   font-size: 16px !important;
-    text-align:justify;
+  text-align: justify;
 }
 
 .bandeau {

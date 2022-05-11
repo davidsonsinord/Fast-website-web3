@@ -1,47 +1,49 @@
 <template>
   <v-content id="agenda">
-    <div class="agenda_headline ATCArquette-Medium white--text mb-3 text-xs-center">
+    <div
+      class="agenda_headline ATCArquette-Medium white--text mb-3 text-xs-center"
+    >
       NOTRE AGENDA
     </div>
     <carousel
-        class="mt-5 ml-5 mr-5"
-        id="agenda-carousel"
-        :perPage="getSlideNumber()"
-        :navigationEnabled="true"
-        :paginationEnabled="false"
-        :scrollPerPage="false"
-        :mouseDrag="false"
-        :navigateTo="[slideToStart, true]"
-        :navigation-next-label="nextLabel"
-        :navigation-prev-label="prevLabel"
-        @pageChange="handlePageChange"
+      class="mt-5 ml-5 mr-5"
+      id="agenda-carousel"
+      :perPage="getSlideNumber()"
+      :navigationEnabled="true"
+      :paginationEnabled="false"
+      :scrollPerPage="false"
+      :mouseDrag="false"
+      :navigateTo="[slideToStart, true]"
+      :navigation-next-label="nextLabel"
+      :navigation-prev-label="prevLabel"
+      @pageChange="handlePageChange"
     >
-
-      <slide v-for="entry in entries" v-if="entry[0]==='o'">
+      <slide v-for="entry in entries" v-if="entry[0] === 'o'">
         <div class="white--text">
           <div height="50px">
             <span class="type left">{{ entry[1] }}</span>
-            <span class="date right">{{ moment(entry[3], "DD MM YYYY").format("MMMM YYYY") }}</span>
+            <span class="date right">{{
+              moment(entry[3], "DD MM YYYY").format("MMMM YYYY")
+            }}</span>
           </div>
           <div class="titre">{{ entry[2] }}</div>
           <div class="descriptif">
-            <div v-if="entry[4]!==''">• {{ entry[4] }}</div>
-            <div v-if="entry[5]!==''">• {{ entry[5] }}</div>
-            <div v-if="entry[6]!==''">• {{ entry[6] }}</div>
-            <div v-if="entry[7]!==''">• {{ entry[7] }}</div>
+            <div v-if="entry[4] !== ''">• {{ entry[4] }}</div>
+            <div v-if="entry[5] !== ''">• {{ entry[5] }}</div>
+            <div v-if="entry[6] !== ''">• {{ entry[6] }}</div>
+            <div v-if="entry[7] !== ''">• {{ entry[7] }}</div>
           </div>
         </div>
       </slide>
-
     </carousel>
   </v-content>
 </template>
 
 <script>
-import {Carousel, Slide} from "vue-carousel";
+import { Carousel, Slide } from "vue-carousel";
 import moment from "moment";
 
-moment.locale('fr');
+moment.locale("fr");
 
 export default {
   name: "AgendaCarousel",
@@ -51,26 +53,28 @@ export default {
   },
   data() {
     return {
-      nextLabel: "<i aria-hidden='true' class='v-icon material-icons theme--dark'>keyboard_arrow_right</i>",
-      prevLabel: "<i aria-hidden='true' class='v-icon material-icons theme--dark'>keyboard_arrow_left</i>",
+      nextLabel:
+        "<i aria-hidden='true' class='v-icon material-icons theme--dark'>keyboard_arrow_right</i>",
+      prevLabel:
+        "<i aria-hidden='true' class='v-icon material-icons theme--dark'>keyboard_arrow_left</i>",
       entries: [],
       moment: moment,
       actualSlide: 0,
       slideToStart: 0,
-    }
+    };
   },
   created() {
-
-    this.$getGapiClient()
-        .then(gapi => {
-          gapi.client.sheets.spreadsheets.values.get({
-            spreadsheetId: '1HnhwLaiIn7T3H_Mm0QJ9BVale0qLX2j0nEQeK4O_dSI',
-            range: 'Feuille 1',
-          }).then(data => {
-            this.entries = data.result.values;
-            this.slideToStart = this.slideToNavigate();
-          });
+    this.$getGapiClient().then((gapi) => {
+      gapi.client.sheets.spreadsheets.values
+        .get({
+          spreadsheetId: "1HnhwLaiIn7T3H_Mm0QJ9BVale0qLX2j0nEQeK4O_dSI",
+          range: "Feuille 1",
         })
+        .then((data) => {
+          this.entries = data.result.values;
+          this.slideToStart = this.slideToNavigate();
+        });
+    });
   },
 
   methods: {
@@ -79,15 +83,15 @@ export default {
     },
     getSlideNumber() {
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
+        case "xs":
           return 1;
-        case 'sm':
+        case "sm":
           return 2;
-        case 'md':
-        case 'lg':
+        case "md":
+        case "lg":
           return 3;
-        case 'xl':
-          return 5
+        case "xl":
+          return 5;
       }
     },
 
@@ -96,16 +100,16 @@ export default {
       let numberOfNone = 0;
       const currentDate = moment();
       let closeDate = currentDate;
-      this.entries.forEach(row => {
-        if (row[0] === 'o' && moment(closeDate).isSameOrBefore(currentDate)) {
+      this.entries.forEach((row) => {
+        if (row[0] === "o" && moment(closeDate).isSameOrBefore(currentDate)) {
           closeDate = moment(row[3], "DD MM YYYY");
           length++;
-        } else if (row[0] === 'n') {
+        } else if (row[0] === "n") {
           numberOfNone++;
-          length++
+          length++;
         }
       });
-      return {"length": length, "numberOfNone": numberOfNone};
+      return { length: length, numberOfNone: numberOfNone };
     },
 
     slideToNavigate() {
@@ -115,27 +119,22 @@ export default {
       let slide = start - this.getSlideNumber();
 
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-        case 'sm':
+        case "xs":
+        case "sm":
           return slide;
-        case 'md':
-        case 'lg':
-          if (start === length)
-            return slide;
-          if (start === (length - 1))
-            return slide + 1;
+        case "md":
+        case "lg":
+          if (start === length) return slide;
+          if (start === length - 1) return slide + 1;
           return slide + 1;
-        case 'xl':
-          if (start === length)
-            return slide;
-          if (start === (length - 1))
-            return slide + 1;
-          return slide + 2
+        case "xl":
+          if (start === length) return slide;
+          if (start === length - 1) return slide + 1;
+          return slide + 2;
       }
     },
-
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -174,7 +173,7 @@ export default {
   bottom: 0;
   font-weight: bold;
   font-size: 1.7em;
-  color: #33CCCC;
+  color: #33cccc;
   padding-top: 5%;
   min-height: 75px;
 }
@@ -206,7 +205,7 @@ export default {
   }
 
   .date {
-    width: 50%
+    width: 50%;
   }
 
   #agenda-carousel {
@@ -218,7 +217,7 @@ export default {
 
 @media screen and (min-width: 600px) and (max-width: 1400px) {
   .date {
-    width: 50%
+    width: 50%;
   }
 
   #agenda-carousel {
@@ -226,6 +225,4 @@ export default {
     width: 90%;
   }
 }
-
-
 </style>

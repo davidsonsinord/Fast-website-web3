@@ -21,21 +21,22 @@
 
 <script>
 import TestimonyService from "../services/testimony.service";
+
 export default {
   name: "Testimony",
   created() {
-    TestimonyService.testimony.then(data => (this.testimonies = data));
+    TestimonyService.testimony.then((data) => (this.testimonies = data));
   },
 
   data: () => ({
-    testimonies: []
+    testimonies: [],
   }),
 
   methods: {
     getImage(testimony) {
       return process.env.VUE_APP_BACK_URL + "img/" + testimony.image;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -56,6 +57,7 @@ export default {
     top: 1% !important;
     font-size: 24px;
   }
+
   .carousel_item {
     padding-top: 55px;
   }

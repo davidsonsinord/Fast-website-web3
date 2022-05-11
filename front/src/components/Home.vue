@@ -50,28 +50,27 @@ export default {
     AgendaCarousel,
     Testimony,
     Contact,
-    PreviewBlog
+    PreviewBlog,
   },
   created() {
     window.scrollTo(0, 0);
-    BlogService.articles.then(data => {
+    BlogService.articles.then((data) => {
       this.posts = data;
       this.sortPosts();
-
     });
   },
   data: () => ({
-    posts: []
+    posts: [],
   }),
   methods: {
-    sortPosts(){
-      this.posts.sort(function(a, b){
-        var dateA=new Date(a.date), dateB=new Date(b.date);
-        return dateB-dateA
+    sortPosts() {
+      this.posts.sort(function (a, b) {
+        var dateA = new Date(a.date),
+          dateB = new Date(b.date);
+        return dateB - dateA;
       });
       return this.posts;
     },
-  }
+  },
 };
 </script>
-

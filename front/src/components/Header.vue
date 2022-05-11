@@ -38,8 +38,7 @@
     <v-menu class="hidden-md-and-up">
       <v-toolbar-side-icon slot="activator"></v-toolbar-side-icon>
       <v-list style="width: 100%" class="button_header">
-        <v-list-tile class="button_header">
-        </v-list-tile>
+        <v-list-tile class="button_header"> </v-list-tile>
         <v-list-tile class="button_header" to="/blog">
           <v-list-tile-content>
             <v-btn

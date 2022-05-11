@@ -10,9 +10,11 @@
             </div>
           </v-card-title>
           <v-card-text>
-            Créée en 2005, Davidson est une société de conseil en management et expertise technologique.
+            Créée en 2005, Davidson est une société de conseil en management et
+            expertise technologique.
             <br />
-            <br />Nous sommes présents dans 8 pays repartis en Europe, aux Emirats Arabes Unis et en Amérique du Nord.
+            <br />Nous sommes présents dans 8 pays repartis en Europe, aux
+            Emirats Arabes Unis et en Amérique du Nord.
           </v-card-text>
         </v-card>
       </v-flex>
@@ -27,7 +29,7 @@
                 <v-icon class="turquoise-dav">phone</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{phone}}</v-list-tile-title>
+                <v-list-tile-title>{{ phone }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -35,7 +37,7 @@
                 <v-icon class="turquoise-dav">place</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{place}}</v-list-tile-title>
+                <v-list-tile-title>{{ place }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
             <v-list-tile>
@@ -43,7 +45,7 @@
                 <v-icon class="turquoise-dav">email</v-icon>
               </v-list-tile-action>
               <v-list-tile-content>
-                <v-list-tile-title>{{email}}</v-list-tile-title>
+                <v-list-tile-title>{{ email }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
@@ -60,9 +62,8 @@ export default {
     phone: "Nicolas Lecaplain",
     place: "12, place Saint Hubert, 59000 Lille",
     email: "fast@davidson.fr",
-  })
+  }),
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

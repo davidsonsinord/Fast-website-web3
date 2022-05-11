@@ -3,7 +3,12 @@
     <v-container>
       <v-layout row wrap>
         <v-flex xs12 md4>
-          <v-text-field v-model="registration.name" :rules="rules.nameRules" label="Prénom Nom" required></v-text-field>
+          <v-text-field
+            v-model="registration.name"
+            :rules="rules.nameRules"
+            label="Prénom Nom"
+            required
+          ></v-text-field>
         </v-flex>
         <v-flex xs12 md4>
           <v-text-field
@@ -24,15 +29,24 @@
       </v-layout>
       <v-layout>
         <v-flex xs12 md8>
-          <v-textarea v-model="registration.description" label="Commentaire"></v-textarea>
+          <v-textarea
+            v-model="registration.description"
+            label="Commentaire"
+          ></v-textarea>
         </v-flex>
       </v-layout>
     </v-container>
-    <v-checkbox v-model="checkbox" :rules="[v => !!v || 'Cochez pour continuer!']" required>
+    <v-checkbox
+      v-model="checkbox"
+      :rules="[(v) => !!v || 'Cochez pour continuer!']"
+      required
+    >
       <template slot="label">
         <span>
           En cochant cette case, vous acceptez nos
-          <router-link @click.stop to="/mentions-legales" target="_blank">conditions d'utilisation</router-link>
+          <router-link @click.stop to="/mentions-legales" target="_blank"
+            >conditions d'utilisation</router-link
+          >
         </span>
       </template>
     </v-checkbox>
@@ -53,13 +67,13 @@ export default {
   },
 
   components: {
-    LegalNotices
+    LegalNotices,
   },
 
   data: () => ({
     valid: false,
     rules: {},
-    registration: {}
+    registration: {},
   }),
   methods: {
     validate() {
@@ -67,7 +81,7 @@ export default {
         this.$emit("next");
         ApiService.updateQuote();
       }
-    }
-  }
+    },
+  },
 };
 </script>

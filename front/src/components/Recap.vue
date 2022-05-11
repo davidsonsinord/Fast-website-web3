@@ -4,24 +4,26 @@
       <h3>Informations personnelles</h3>
       <v-divider></v-divider>
       <v-icon>account_circle</v-icon>
-      {{registration.name}}
+      {{ registration.name }}
       <br />
       <br />
       <v-icon>call</v-icon>
-      {{registration.tel}}
+      {{ registration.tel }}
       <br />
       <br />
       <v-icon>email</v-icon>
-      {{registration.mail}}
+      {{ registration.mail }}
       <br />
       <br />
       <v-icon>notes</v-icon>
-      {{registration.description}}
+      {{ registration.description }}
       <br />
       <br />
       <h3>Vos compétences choisies</h3>
       <v-divider></v-divider>
-      <v-chip v-for="skill in registration.skills" @input="remove(skill)">{{skill.title}}</v-chip>
+      <v-chip v-for="skill in registration.skills" @input="remove(skill)">{{
+        skill.title
+      }}</v-chip>
     </v-container>
   </div>
 </template>
@@ -36,7 +38,7 @@ export default {
     this.registration = FormService.registration;
   },
   data: () => ({
-    registration: {}
+    registration: {},
   }),
   methods: {
     remove(item) {
@@ -49,8 +51,8 @@ export default {
     validate() {
       ApiService.validateQuote();
       this.$emit("finish");
-    }
-  }
+    },
+  },
 };
 </script>
 
